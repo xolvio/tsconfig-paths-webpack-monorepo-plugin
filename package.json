@@ -1,12 +1,10 @@
 {
-  "name": "tsconfig-paths-webpack-plugin",
+  "name": "tsconfig-paths-webpack-monorepo-plugin",
   "version": "3.3.0",
-  "description": "Load modules according to tsconfig paths in webpack.",
+  "description": "Load modules according to tsconfig paths in webpack with lerna monorepos.",
   "main": "lib/index.js",
   "types": "lib/index",
-  "author": "Jonas Kello",
   "license": "MIT",
-  "repository": "https://github.com/dividab/tsconfig-paths-webpack-plugin",
   "dependencies": {
     "chalk": "^2.3.0",
     "enhanced-resolve": "^4.0.0",
@@ -31,8 +29,7 @@
     "build": "rimraf lib && tsc -p src",
     "lint": "tslint -t msbuild './src/**/*.ts{,x}' -e './src/node_modules/**/*'",
     "verify": "yarn build && yarn lint",
-    "preversion": "yarn verify",
-    "postversion": "git push --tags && yarn publish --new-version $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
+    "preversion": "yarn verify"
   },
   "lint-staged": {
     "*.{ts,tsx}": "tslint",
@@ -45,5 +42,18 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "directories": {
+    "example": "example"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xolvio/tsconfig-paths-webpack-monorepo-plugin.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/xolvio/tsconfig-paths-webpack-monorepo-plugin/issues"
+  },
+  "homepage": "https://github.com/xolvio/tsconfig-paths-webpack-monorepo-plugin#readme"
 }

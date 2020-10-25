@@ -202,6 +202,18 @@ export class TsconfigPathsPlugin implements ResolverPlugin {
   }
 }
 
+function getPackagePathFromParent(parentFileDirectory: string) {
+  let parts = parentFileDirectory.split('/')
+  let packagesIndex = parts.findIndex((p) => p === 'packages')
+  let packageDirParts = []
+  // find all parts including one after the packages, so including the package path
+  for (let i = 0; i <= packagesIndex + 1; i += 1) {
+    packageDirParts[i] = parts[i]
+  }
+  return packageDirParts.join('/')
+}
+
+
 function createPluginCallback(
   matchPath: TsconfigPaths.MatchPathAsync,
   resolver: Resolver,
@@ -217,6 +229,10 @@ function createPluginCallback(
     callback: Callback
   ) => {
     const innerRequest = getInnerRequest(resolver, request);
+
+    if (`${getPackagePathFromParent(request.path)}/` !== absoluteBaseUrl) {
+      return callback()
+    }
 
     if (
       !innerRequest ||
